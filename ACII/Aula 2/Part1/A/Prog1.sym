@@ -1,0 +1,9 @@
+GAS LISTING Prog1.s 			page 1
+
+
+DEFINED SYMBOLS
+             Prog1.s:6      .text:0000000000000000 main
+             Prog1.s:9      .text:0000000000000004 while
+             Prog1.s:22     .text:000000000000002c Wh2
+
+NO UNDEFINED SYMBOLS

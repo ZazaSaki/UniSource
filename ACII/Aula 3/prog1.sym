@@ -1,0 +1,25 @@
+GAS LISTING prog1.s 			page 1
+
+
+DEFINED SYMBOLS
+             prog1.s:2      *ABS*:000000000000bf88 ADDR_BASE_HI
+             prog1.s:3      *ABS*:0000000000006100 TRISE
+             prog1.s:5      *ABS*:0000000000006040 TRISB
+             prog1.s:6      *ABS*:0000000000006050 PORTB
+             prog1.s:8      *ABS*:0000000000006110 PORTE
+             prog1.s:9      *ABS*:0000000000006120 LATE
+             prog1.s:10     *ABS*:0000000000000001 freqOn
+             prog1.s:11     *ABS*:0000000000000014 freqOff
+             prog1.s:13     *ABS*:00000000000060c0 TRISD
+             prog1.s:14     *ABS*:00000000000060d0 PORTD
+             prog1.s:18     .text:0000000000000000 main
+             prog1.s:44     .text:000000000000002c loop
+             prog1.s:135    .text:0000000000000124 ligth_off
+             prog1.s:112    .text:00000000000000e4 delay
+             prog1.s:124    .text:0000000000000114 ligth_on
+             prog1.s:84     .text:0000000000000094 nn
+             prog1.s:86     .text:0000000000000098 nn2
+             prog1.s:118    .text:00000000000000f8 WhDl
+             prog1.s:146    .text:0000000000000134 set_ligth
+
+NO UNDEFINED SYMBOLS
