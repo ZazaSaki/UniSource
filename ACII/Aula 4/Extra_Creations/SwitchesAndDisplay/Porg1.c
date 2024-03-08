@@ -3,24 +3,24 @@
 #define PBCLK (FREQ/2)
 #define NC (FREQ/2)
 
-#include "../outils.c"
+#include "../../../outils.c"
 
-void Dysp(int val,int prt){
-    if (val == 0)
-    {
-        LATB = (LATB & 0X80FF) | prt;
-        LATDbits.LATD5 = 1;
-        LATDbits.LATD6 = 0;
-    }else
-    {
-        LATB = (LATB & 0X80FF) | prt;
-        LATDbits.LATD5 = 0;
-        LATDbits.LATD6 = 1;
-    }
+// void Dysp(int val,int prt){
+//     if (val == 0)
+//     {
+//         LATB = (LATB & 0X80FF) | prt;
+//         LATDbits.LATD5 = 1;
+//         LATDbits.LATD6 = 0;
+//     }else
+//     {
+//         LATB = (LATB & 0X80FF) | prt;
+//         LATDbits.LATD5 = 0;
+//         LATDbits.LATD6 = 1;
+//     }
     
         
     
-}
+// }
 
 void UpdateDefaults(){
     
