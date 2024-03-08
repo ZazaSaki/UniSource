@@ -34,48 +34,24 @@
     
     //Display Char 
         int DispL(char c){
-            
+            if (c>47 && c<58){
+                return DispLN(c-48);
+            }
+
+            if (c>64 && c < 71){
+                return DispLN(c-55);
+            }
+
             switch (c)
             {
-            case '0':
-                return Disp7Seg[0x0];
-            case '1':
-                return Disp7Seg[0x1];
-            case '2':
-                return Disp7Seg[0x2];
-            case '3':
-                return Disp7Seg[0x3];
-            case '4':
-                return Disp7Seg[0x4];
-            case '5':
-                return Disp7Seg[0x5];
-            case '6':
-                return Disp7Seg[0x6];
-            case '7':
-                return Disp7Seg[0x7];
-            case '8':
-                return Disp7Seg[0x8];
-            case '9':
-                return Disp7Seg[0x9];
-            case 'A':
-                return Disp7Seg[0xA];
-            case 'B':
-                return Disp7Seg[0xB];
-            case 'C':
-                return Disp7Seg[0xC];
-            case 'D':
-                return Disp7Seg[0xD];
-            case 'F':
-                return Disp7Seg[0xE];
-            case 'E':
-                return Disp7Seg[0xF];
             case 'º':
-                return Disp7Seg[0x10];
+                return DispLN(0x10);
             
             default:
                 break;
             }
             
+            return 0x0;
         }
 
     //Display int
@@ -83,44 +59,6 @@
 
             return Disp7Seg[i]<<8;
 
-            // switch (i)
-            // {
-            //     case 0x0:
-            //         return s0;
-            //     case 0x1:
-            //         return s1;
-            //     case 0x2:
-            //         return s2;
-            //     case 0x3:
-            //         return s3;
-            //     case 0x4:
-            //         return s4;
-            //     case 0x5:
-            //         return s5;
-            //     case 0x6:
-            //         return s6;
-            //     case 0x7:
-            //         return s7;
-            //     case 0x8:
-            //         return s8;
-            //     case 0x9:
-            //         return s9;
-            //     case 0xA:
-            //         return sA;
-            //     case 0xB:
-            //         return sB;
-            //     case 0xC:
-            //         return sC;
-            //     case 0xD:
-            //         return sD;
-            //     case 0xF:
-            //         return sF;
-            //     case 0xE:
-            //         return sE;
-                
-            //     default:
-            //         return 0x0000;
-            // }   
         }
 
     //send vals
