@@ -1,3 +1,4 @@
+#include <detpic32.h>
 //Agrressive delay
     void delay(int x){
         resetCoreTimer();
@@ -25,7 +26,7 @@
     }
 
 //dysplay defaults
-    TRISD = TRISD & 0X80FF;
+    //TRISB = TRISB & 0X80FF; 
 
     //Display Values
         #define s0 0x3F00
@@ -152,8 +153,17 @@
             
         }
 
-        void sendToDisp(int val){
-            Dysp(val & 0x0F, 0);
-            delay(521);
-            Dysp(val & 0xF0>>4, 1);
-        }        
+        void sendToDisp(int val, int clk){
+            Dysp(0, DispLN(val & 0xF));
+            delay(clk);
+            Dysp(1, DispLN((val & 0xF0)>>4));
+            delay(clk);
+        }
+
+        void sendToDisp10(int val, int clk){
+            Dysp(0, DispLN((val%10) & 0xF));
+            delay(clk);
+            Dysp(1, DispLN((val/10) & 0xF));
+            delay(clk);
+        }       
+ 

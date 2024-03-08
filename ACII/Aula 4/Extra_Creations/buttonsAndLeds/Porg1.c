@@ -1,5 +1,5 @@
 #include <detpic32.h>
-#define FREQ 80000000
+#define FREQ 40000000
 #define PBCLK (FREQ/2)
 #define NC (FREQ/4)
 

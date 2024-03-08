@@ -2,7 +2,7 @@
 #define FREQ 40000000
 #define PBCLK (FREQ/2)
 #define NC ((FREQ/2048)>>2)
-#define LIM 0x9
+#define LIM 0xFF
 
 #include "../../../outils.c"
 
@@ -43,10 +43,11 @@ void UpdateDefaults(){
         
 
         
-        Dysp(0,DispLN(i));
-        delay(512);
-        Dysp(1,DispLN(LIM-i));
-        delay(512);
+        sendToDisp10(i,512);
+        // Dysp(0,DispLN(i));
+        // delay(512);
+        // Dysp(1,DispLN(LIM-i));
+        // delay(512);
 
         if (chill_delay(NC))
         {

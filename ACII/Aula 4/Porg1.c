@@ -5,28 +5,28 @@
 
 #include "../outils.c"
 
-void Dysp(int val,int prt){
-    if (val == 0)
-    {
-        LATB = (LATB & 0X80FF) | prt;
-        LATDbits.LATD5 = 1;
-        LATDbits.LATD6 = 0;
-    }else
-    {
-        LATB = (LATB & 0X80FF) | prt;
-        LATDbits.LATD5 = 0;
-        LATDbits.LATD6 = 1;
-    }
+// void Dysp(int val,int prt){
+//     if (val == 0)
+//     {
+//         LATB = (LATB & 0X80FF) | prt;
+//         LATDbits.LATD5 = 1;
+//         LATDbits.LATD6 = 0;
+//     }else
+//     {
+//         LATB = (LATB & 0X80FF) | prt;
+//         LATDbits.LATD5 = 0;
+//         LATDbits.LATD6 = 1;
+//     }
     
         
     
-}
+// }
 
-void sendToDisp(int val){
-    Dysp(val & 0x0F, 0);
-    delay(521);
-    Dysp(val & 0xF0>>4, 1);
-}
+// void sendToDisp(int val){
+//     Dysp(val & 0x0F, 0);
+//     delay(521);
+//     Dysp(val & 0xF0>>4, 1);
+// }
 
 void UpdateDefaults(){
     
@@ -46,7 +46,7 @@ void UpdateDefaults(){
     while (1)
     {   
         
-        int DisplayClock = ((PORTB & 0x000F)<<4)+0x0001;
+        int DisplayClock = ((PORTB & 0x000F)<<6)+0x0001; //controlling the refesh rate through the siwtches
         int val = (PORTB & 0x000F)>>2;
         
         Dysp(0,DispLN(i));
@@ -54,7 +54,7 @@ void UpdateDefaults(){
         Dysp(1,DispLN(0x000F-i));
         delay(DisplayClock);
 
-        if (chill_delay(NC<<(4-val)) && PORTDbits.RD8)
+        if (chill_delay(NC<<(4-val)) && PORTDbits.RD8) //balancing the counting rate (Δ_count_rate = 1/Δ_refresh_rate)
         {
             i++;
             if(i>0xF){
