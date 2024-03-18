@@ -33,26 +33,26 @@
 
     
     //Display Char 
-        int DispL(char c){
-            if (c>47 && c<58){
-                return DispLN(c-48);
-            }
+        // int DispL(char c){
+        //     if (c>47 && c<58){
+        //         return DispLN(c-48);
+        //     }
 
-            if (c>64 && c < 71){
-                return DispLN(c-55);
-            }
+        //     if (c>64 && c < 71){
+        //         return DispLN(c-55);
+        //     }
 
-            switch (c)
-            {
-            case 'º':
-                return DispLN(0x10);
+        //     switch (c)
+        //     {
+        //     case 'º':
+        //         return DispLN(0x10);
             
-            default:
-                break;
-            }
+        //     default:
+        //         break;
+        //     }
             
-            return 0x0;
-        }
+        //     return 0x0;
+        // }
 
     //Display int
         int DispLN(int i){
@@ -77,6 +77,12 @@
             
                 
             
+        }
+
+
+        void displayOff(void){
+            LATDbits.LATD5 = 0;
+            LATDbits.LATD6 = 0;
         }
 
         void sendToDisp(int val, int clk){
