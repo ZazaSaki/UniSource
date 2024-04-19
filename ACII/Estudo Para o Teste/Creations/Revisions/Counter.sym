@@ -1,0 +1,15 @@
+GAS LISTING Counter.s 			page 1
+
+
+DEFINED SYMBOLS
+           Counter.s:2      *ABS*:000000000000bf88 ADDR_BASE_HI
+           Counter.s:3      *ABS*:0000000000006100 TRISE
+           Counter.s:4      *ABS*:0000000000006110 PORTE
+           Counter.s:5      *ABS*:0000000000006120 LATE
+           Counter.s:14     .text:0000000000000000 main
+           Counter.s:32     .text:000000000000001c While
+           Counter.s:34     .text:000000000000001c counter
+           Counter.s:68     .text:000000000000006c delay
+           Counter.s:71     .text:0000000000000070 whDelay
+
+NO UNDEFINED SYMBOLS

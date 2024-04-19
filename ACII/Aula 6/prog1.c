@@ -76,7 +76,7 @@ int main(int argc, char const *argv[])
         }    
 
 
-        accumulator = (accumulator/SAMPLES+512)*res/1024;
+        accumulator = (accumulator*res)/(1024*(SAMPLES+512));
 
         putChar('_') ;
         putChar('_') ;
