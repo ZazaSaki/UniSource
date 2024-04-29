@@ -54,6 +54,16 @@
             
         //     return 0x0;
         // }
+        static int _reserved_display_val_0 = 88;
+        void setDispVal(int i){
+            _reserved_display_val_0 = i;
+            
+        }
+        void displayInit(void){
+            TRISB = TRISB & 0x80FF;
+            TRISDbits.TRISD5 = 0;
+            TRISDbits.TRISD6 = 0;
+        }
 
     //Display int
         int DispLN(int i){
@@ -75,15 +85,32 @@
                 LATDbits.LATD5 = 0;
                 LATDbits.LATD6 = 1;
             }
-            
-                
-            
         }
+
+        void Dysp10(int val,int prt){
+            int show = 0;
+            if (val == 0)
+            {   
+                show = DispLN((prt%10) & 0xF);
+            }else
+            {   
+                show = DispLN((prt/10) & 0xF);
+            }
+            
+            Dysp(val, show);
+        }
+
 
 
         void displayOff(void){
             LATDbits.LATD5 = 0;
             LATDbits.LATD6 = 0;
+            
+        }
+
+        void displayToggle(void){
+            Dysp10(!LATDbits.LATD6, _reserved_display_val_0);
+            
         }
 
         void sendToDisp(int val, int clk){
