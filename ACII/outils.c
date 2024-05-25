@@ -13,6 +13,9 @@
 // soft delay
     int delay_conter_for_own_timer = 0;
     int chill_delay(int x){
+        
+        //printInt10(delay_conter_for_own_timer);
+        // putchar('\r');
         if (delay_conter_for_own_timer < x)
         {
             delay_conter_for_own_timer++;
@@ -120,6 +123,13 @@
             delay(clk);
         }
 
+        void sendToDispChill(int val, int clk){
+            Dysp(0, DispLN(val & 0xF));
+            chill_delay(clk);
+            Dysp(1, DispLN((val & 0xF0)>>4));
+            chill_delay(clk);
+        }
+
         void sendToDisp10(int val, int clk){
             Dysp(0, DispLN((val%10) & 0xF));
             delay(clk);
@@ -156,3 +166,222 @@
         IFS1bits.AD1IF = 0; // clear A/D interrupt flag 
         IEC1bits.AD1IE = 1; // enable A/D interrupts 
     }
+
+
+//UART 2
+void initUART2(int BoadRate, int parity, int mode, int stopBit){
+    int stop;
+    int par;
+
+    // Configure UART2:
+    // 1 - Configure BaudRate Generator x
+    U2BRG = BoadRate; // BoadRate
+    U2MODEbits.BRGH = 0; // 1/0 4x/16x
+
+    // 2 – Configure number of data bits, parity and number of stop bits
+    // (see U2MODE register) x
+    
+    if (mode == 8)
+    {
+        if (parity == 'N')
+        {
+            par = 0;
+        }
+
+        if (parity == 'P')
+        {
+            par = 1;
+        }
+
+        if (parity == 'O')
+        {
+            par = 2;
+        }
+        
+    }
+
+    if (mode == 9)
+    {
+        par = 3;
+        
+    }
+
+    if (stopBit == 2)
+    {
+        stop = 1;
+    }else{
+        stop = 0;
+    }
+    
+
+    
+    U2MODEbits.PDSEL = par; // 00/01/10/11 none/par/odd/9None
+    U2MODEbits.STSEL = stop; // 1 or 0
+
+    // 3 – Enable the trasmitter and receiver modules (see register U2STA) x
+    U2STAbits.UTXEN = 1; // 1/0 on/off
+    U2STAbits.URXEN = 1; // 1/0 on/off
+    // 4 – Enable UART2 (see register U2MODE) 
+    U2MODEbits.ON = 1;
+}
+
+void puttcU2(char byte2send)
+{
+    // wait while UTXBF == 1
+    while (U2STAbits.UTXBF == 1);
+    // Copy byte2send to the UxTXREG register
+    U2TXREG = byte2send;
+    
+} 
+
+char gettcU2(void)
+{
+    // If OERR == 1 then reset OERR
+    if (U2STAbits.OERR == 1)
+    {
+        U2STAbits.OERR = 0;
+    }
+    
+    // Wait while URXDA == 0
+    while (U2STAbits.URXDA == 0);
+    
+    return U2RXREG;
+    
+    // Return UxRXREG
+} 
+
+char gettChillCU2(void){
+    // If OERR == 1 then reset OERR
+    if (U2STAbits.OERR == 1)
+    {
+        U2STAbits.OERR = 0;
+    }
+    
+    // Wait while URXDA == 0
+    if (U2STAbits.URXDA != 0){
+        return U2RXREG;
+    };
+
+    return NULL;
+}
+
+void putStringU2(char* string){
+
+    while (*string != '\0')
+    {   
+        puttcU2(*string);
+        string++;
+
+               
+    }
+    
+}
+
+//UART 1
+void initUART1(int BoadRate, int parity, int mode, int stopBit){
+    int stop;
+    int par;
+
+    // Configure UART2:
+    // 1 - Configure BaudRate Generator x
+    U1BRG = BoadRate; // BoadRate
+    U1MODEbits.BRGH = 0; // 1/0 4x/16x
+
+    // 2 – Configure number of data bits, parity and number of stop bits
+    // (see U1MODE register) x
+    
+    if (mode == 8)
+    {
+        if (parity == 'N')
+        {
+            par = 0;
+        }
+
+        if (parity == 'P')
+        {
+            par = 1;
+        }
+
+        if (parity == 'O')
+        {
+            par = 2;
+        }
+        
+    }
+
+    if (mode == 9)
+    {
+        par = 3;
+        
+    }
+
+    if (stopBit == 2)
+    {
+        stop = 1;
+    }else{
+        stop = 0;
+    }
+    
+
+    
+    U1MODEbits.PDSEL = par; // 00/01/10/11 none/par/odd/9None
+    U1MODEbits.STSEL = stop; // 1 or 0
+
+    // 3 – Enable the trasmitter and receiver modules (see register U1STA) x
+    U1STAbits.UTXEN = 1; // 1/0 on/off
+    U1STAbits.URXEN = 1; // 1/0 on/off
+    // 4 – Enable UART2 (see register U1MODE) 
+    U1MODEbits.ON = 1;
+}
+
+void puttcU1(char byte2send)
+{
+    // wait while UTXBF == 1
+    while (U1STAbits.UTXBF == 1);
+    // Copy byte2send to the UxTXREG register
+    U1TXREG = byte2send;
+    
+} 
+
+char gettcU1(void)
+{
+    // If OERR == 1 then reset OERR
+    if (U1STAbits.OERR == 1)
+    {
+        U1STAbits.OERR = 0;
+    }
+    
+    // Wait while URXDA == 0
+    while (U1STAbits.URXDA == 0);
+    
+    return U1RXREG;
+    
+    // Return UxRXREG
+} 
+
+char gettChillCU1(void){
+    // If OERR == 1 then reset OERR
+    if (U1STAbits.OERR == 1)
+    {
+        U1STAbits.OERR = 0;
+    }
+    
+    // Wait while URXDA == 0
+    if (U1STAbits.URXDA != 0){
+        return U1RXREG;
+    };
+
+    return NULL;
+}
+
+void putStringU1(char* string){
+
+    while (*string != '\0')
+    {   
+        puttcU1(*string);
+        string++;
+
+               
+    }
+    
+}
